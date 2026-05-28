@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biểu quyết du lịch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen p-4">
+  <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
+    <div class="bg-blue-700 text-white p-6">
+      <h1 class="text-3xl font-bold">📋 BIỂU MẪU LẤY Ý KIẾN BIỂU QUYẾT</h1>
+      <p class="mt-2 text-blue-100">Về mức đóng tiền và lựa chọn địa điểm du lịch</p>
+    </div>
+
+    <form id="voteForm" class="p-6 space-y-8">
+      <div>
+        <label class="block font-semibold mb-2">Họ và tên</label>
+        <input
+          type="text"
+          id="fullName"
+          required
+          class="w-full border rounded-2xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Nhập họ tên"
+        />
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-2">Bộ phận / Tổ</label>
+        <input
+          type="text"
+          id="department"
+          class="w-full border rounded-2xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Ví dụ: Khoa CNTT"
+        />
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold mb-4">💰 Chọn mức đóng tiền</h2>
+
+        <div class="space-y-3">
+          <label class="flex items-center gap-3 border rounded-2xl p-4 hover:bg-slate-50 cursor-pointer">
+            <input type="radio" name="fee" value="500.000 đồng" required />
+            <span>500.000 đồng/người</span>
+          </label>
+
+          <label class="flex items-center gap-3 border rounded-2xl p-4 hover:bg-slate-50 cursor-pointer">
+            <input type="radio" name="fee" value="700.000 đồng" />
+            <span>700.000 đồng/người</span>
+          </label>
+
+          <label class="flex items-center gap-3 border rounded-2xl p-4 hover:bg-slate-50 cursor-pointer">
+            <input type="radio" name="fee" value="1.000.000 đồng" />
+            <span>1.000.000 đồng/người</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold mb-4">🌴 Chọn địa điểm du lịch</h2>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <label class="border rounded-2xl p-4 hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+            <input type="radio" name="tour" value="Vũng Tàu" required />
+            <span>Vũng Tàu</span>
+          </label>
+
+          <label class="border rounded-2xl p-4 hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+            <input type="radio" name="tour" value="Đà Lạt" />
+            <span>Đà Lạt</span>
+          </label>
+
+          <label class="border rounded-2xl p-4 hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+            <input type="radio" name="tour" value="Phú Quốc" />
+            <span>Phú Quốc</span>
+          </label>
+
+          <label class="border rounded-2xl p-4 hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+            <input type="radio" name="tour" value="Nha Trang" />
+            <span>Nha Trang</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-2">Ý kiến thêm</label>
+        <textarea
+          id="note"
+          rows="4"
+          class="w-full border rounded-2xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Góp ý thêm nếu có..."
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 rounded-2xl transition"
+      >
+        🚀 Gửi biểu quyết
+      </button>
+    </form>
+
+    <div id="result" class="hidden p-6 bg-green-50 border-t border-green-200">
+      <h3 class="text-2xl font-bold text-green-700">✅ Đã gửi thành công!</h3>
+      <div class="mt-4 space-y-2 text-slate-700">
+        <p><strong>Họ tên:</strong> <span id="rName"></span></p>
+        <p><strong>Bộ phận:</strong> <span id="rDepartment"></span></p>
+        <p><strong>Mức đóng:</strong> <span id="rFee"></span></p>
+        <p><strong>Địa điểm:</strong> <span id="rTour"></span></p>
+        <p><strong>Ý kiến:</strong> <span id="rNote"></span></p>
+      </div>
+    </div>
+
+    <div class="p-6 border-t bg-slate-50">
+      <h2 class="text-2xl font-bold mb-6">📊 THỐNG KÊ BIỂU QUYẾT</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl shadow p-5 border">
+          <h3 class="font-bold text-lg mb-4">💰 Mức đóng tiền</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span>500.000 đồng</span>
+              <span id="fee500">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>700.000 đồng</span>
+              <span id="fee700">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>1.000.000 đồng</span>
+              <span id="fee1000">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-5 border">
+          <h3 class="font-bold text-lg mb-4">🌴 Địa điểm du lịch</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span>Vũng Tàu</span>
+              <span id="tourVT">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Đà Lạt</span>
+              <span id="tourDL">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Phú Quốc</span>
+              <span id="tourPQ">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Nha Trang</span>
+              <span id="tourNT">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 bg-blue-50 border border-blue-200 rounded-2xl p-5 text-center">
+        <p class="text-xl font-bold text-blue-700">
+          👥 Tổng số lượt biểu quyết: <span id="totalVotes">0</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('voteForm');
+
+    let stats = JSON.parse(localStorage.getItem('voteStats')) || {
+      fee500: 0,
+      fee700: 0,
+      fee1000: 0,
+      tourVT: 0,
+      tourDL: 0,
+      tourPQ: 0,
+      tourNT: 0,
+      total: 0
+    };
+
+    // Hiển thị thống kê khi refresh
+    document.getElementById('fee500').innerText = stats.fee500;
+    document.getElementById('fee700').innerText = stats.fee700;
+    document.getElementById('fee1000').innerText = stats.fee1000;
+
+    document.getElementById('tourVT').innerText = stats.tourVT;
+    document.getElementById('tourDL').innerText = stats.tourDL;
+    document.getElementById('tourPQ').innerText = stats.tourPQ;
+    document.getElementById('tourNT').innerText = stats.tourNT;
+
+    document.getElementById('totalVotes').innerText = stats.total;
+
+      // Lưu vào localStorage
+      localStorage.setItem('voteStats', JSON.stringify(stats));
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById('fullName').value;
+      const department = document.getElementById('department').value;
+      const fee = document.querySelector('input[name="fee"]:checked').value;
+      const tour = document.querySelector('input[name="tour"]:checked').value;
+      const note = document.getElementById('note').value;
+
+      document.getElementById('rName').innerText = fullName;
+      document.getElementById('rDepartment').innerText = department;
+      document.getElementById('rFee').innerText = fee;
+      document.getElementById('rTour').innerText = tour;
+      document.getElementById('rNote').innerText = note || 'Không có';
+
+      document.getElementById('result').classList.remove('hidden');
+
+      // Thống kê mức đóng
+      if (fee === '500.000 đồng') stats.fee500++;
+      if (fee === '700.000 đồng') stats.fee700++;
+      if (fee === '1.000.000 đồng') stats.fee1000++;
+
+      // Thống kê địa điểm
+      if (tour === 'Vũng Tàu') stats.tourVT++;
+      if (tour === 'Đà Lạt') stats.tourDL++;
+      if (tour === 'Phú Quốc') stats.tourPQ++;
+      if (tour === 'Nha Trang') stats.tourNT++;
+
+      stats.total++;
+
+      // Cập nhật giao diện
+      document.getElementById('fee500').innerText = stats.fee500;
+      document.getElementById('fee700').innerText = stats.fee700;
+      document.getElementById('fee1000').innerText = stats.fee1000;
+
+      document.getElementById('tourVT').innerText = stats.tourVT;
+      document.getElementById('tourDL').innerText = stats.tourDL;
+      document.getElementById('tourPQ').innerText = stats.tourPQ;
+      document.getElementById('tourNT').innerText = stats.tourNT;
+
+      document.getElementById('totalVotes').innerText = stats.total;
+
+      form.reset();
+
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
